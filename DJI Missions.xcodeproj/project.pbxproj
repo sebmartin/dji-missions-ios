@@ -1,0 +1,723 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		9689EAA027FA8A8E0045A067 /* MissionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9689EA9F27FA8A8E0045A067 /* MissionsView.swift */; };
+		9689EAA227FA8D010045A067 /* MissionMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9689EAA127FA8D010045A067 /* MissionMap.swift */; };
+		96ADC6CF27F93BBA005EC8B7 /* DJI_MissionsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96ADC6CE27F93BBA005EC8B7 /* DJI_MissionsApp.swift */; };
+		96ADC6D127F93BBA005EC8B7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96ADC6D027F93BBA005EC8B7 /* ContentView.swift */; };
+		96ADC6D327F93BBC005EC8B7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96ADC6D227F93BBC005EC8B7 /* Assets.xcassets */; };
+		96ADC6D627F93BBC005EC8B7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96ADC6D527F93BBC005EC8B7 /* Preview Assets.xcassets */; };
+		96ADC6D827F93BBC005EC8B7 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96ADC6D727F93BBC005EC8B7 /* Persistence.swift */; };
+		96ADC6E527F93BBD005EC8B7 /* DJI_MissionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96ADC6E427F93BBD005EC8B7 /* DJI_MissionsTests.swift */; };
+		96ADC6EF27F93BBD005EC8B7 /* DJI_MissionsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96ADC6EE27F93BBD005EC8B7 /* DJI_MissionsUITests.swift */; };
+		96ADC6F127F93BBD005EC8B7 /* DJI_MissionsUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96ADC6F027F93BBD005EC8B7 /* DJI_MissionsUITestsLaunchTests.swift */; };
+		96ADC6FF27F93DBB005EC8B7 /* ProductCommunicationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96ADC6FE27F93DBB005EC8B7 /* ProductCommunicationManager.swift */; };
+		96ADC70327F94338005EC8B7 /* MissionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96ADC70227F94338005EC8B7 /* MissionView.swift */; };
+		96F10B1827F947BF00D26D60 /* DJI_Missions.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 96F10B1627F947BE00D26D60 /* DJI_Missions.xcdatamodeld */; };
+		F928A2DC0F76053A4C6F44DD /* libPods-DJI Missions.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A9C9DBEA75CFFE170899FAC4 /* libPods-DJI Missions.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		96ADC6E127F93BBD005EC8B7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 96ADC6C327F93BBA005EC8B7 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 96ADC6CA27F93BBA005EC8B7;
+			remoteInfo = "DJI Missions";
+		};
+		96ADC6EB27F93BBD005EC8B7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 96ADC6C327F93BBA005EC8B7 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 96ADC6CA27F93BBA005EC8B7;
+			remoteInfo = "DJI Missions";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		371B5F8CC60518B4B7553D96 /* Pods-DJI Missions.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DJI Missions.release.xcconfig"; path = "Target Support Files/Pods-DJI Missions/Pods-DJI Missions.release.xcconfig"; sourceTree = "<group>"; };
+		9689EA9F27FA8A8E0045A067 /* MissionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionsView.swift; sourceTree = "<group>"; };
+		9689EAA127FA8D010045A067 /* MissionMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionMap.swift; sourceTree = "<group>"; };
+		96ADC6CB27F93BBA005EC8B7 /* DJI Missions.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DJI Missions.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		96ADC6CE27F93BBA005EC8B7 /* DJI_MissionsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DJI_MissionsApp.swift; sourceTree = "<group>"; };
+		96ADC6D027F93BBA005EC8B7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		96ADC6D227F93BBC005EC8B7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		96ADC6D527F93BBC005EC8B7 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		96ADC6D727F93BBC005EC8B7 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
+		96ADC6E027F93BBD005EC8B7 /* DJI MissionsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "DJI MissionsTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		96ADC6E427F93BBD005EC8B7 /* DJI_MissionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DJI_MissionsTests.swift; sourceTree = "<group>"; };
+		96ADC6EA27F93BBD005EC8B7 /* DJI MissionsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "DJI MissionsUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		96ADC6EE27F93BBD005EC8B7 /* DJI_MissionsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DJI_MissionsUITests.swift; sourceTree = "<group>"; };
+		96ADC6F027F93BBD005EC8B7 /* DJI_MissionsUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DJI_MissionsUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		96ADC6FE27F93DBB005EC8B7 /* ProductCommunicationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductCommunicationManager.swift; sourceTree = "<group>"; };
+		96ADC70227F94338005EC8B7 /* MissionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionView.swift; sourceTree = "<group>"; };
+		96F10B1727F947BE00D26D60 /* DJI_Missions.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DJI_Missions.xcdatamodel; sourceTree = "<group>"; };
+		A9C9DBEA75CFFE170899FAC4 /* libPods-DJI Missions.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DJI Missions.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E002A1530A79880225B98AF7 /* Pods-DJI Missions.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DJI Missions.debug.xcconfig"; path = "Target Support Files/Pods-DJI Missions/Pods-DJI Missions.debug.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		96ADC6C827F93BBA005EC8B7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F928A2DC0F76053A4C6F44DD /* libPods-DJI Missions.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		96ADC6DD27F93BBD005EC8B7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		96ADC6E727F93BBD005EC8B7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		5B6F5EA3CD3427B672E567AA /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				E002A1530A79880225B98AF7 /* Pods-DJI Missions.debug.xcconfig */,
+				371B5F8CC60518B4B7553D96 /* Pods-DJI Missions.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		81087A204FAAE06787F4AE98 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A9C9DBEA75CFFE170899FAC4 /* libPods-DJI Missions.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		96ADC6C227F93BBA005EC8B7 = {
+			isa = PBXGroup;
+			children = (
+				96ADC6CD27F93BBA005EC8B7 /* DJI Missions */,
+				96ADC6E327F93BBD005EC8B7 /* DJI MissionsTests */,
+				96ADC6ED27F93BBD005EC8B7 /* DJI MissionsUITests */,
+				96ADC6CC27F93BBA005EC8B7 /* Products */,
+				5B6F5EA3CD3427B672E567AA /* Pods */,
+				81087A204FAAE06787F4AE98 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		96ADC6CC27F93BBA005EC8B7 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				96ADC6CB27F93BBA005EC8B7 /* DJI Missions.app */,
+				96ADC6E027F93BBD005EC8B7 /* DJI MissionsTests.xctest */,
+				96ADC6EA27F93BBD005EC8B7 /* DJI MissionsUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		96ADC6CD27F93BBA005EC8B7 /* DJI Missions */ = {
+			isa = PBXGroup;
+			children = (
+				96ADC6FD27F93DA3005EC8B7 /* Services */,
+				96ADC6CE27F93BBA005EC8B7 /* DJI_MissionsApp.swift */,
+				96ADC6D027F93BBA005EC8B7 /* ContentView.swift */,
+				9689EA9F27FA8A8E0045A067 /* MissionsView.swift */,
+				96ADC70227F94338005EC8B7 /* MissionView.swift */,
+				9689EAA127FA8D010045A067 /* MissionMap.swift */,
+				96ADC6D227F93BBC005EC8B7 /* Assets.xcassets */,
+				96ADC6D727F93BBC005EC8B7 /* Persistence.swift */,
+				96F10B1627F947BE00D26D60 /* DJI_Missions.xcdatamodeld */,
+				96ADC6D427F93BBC005EC8B7 /* Preview Content */,
+			);
+			path = "DJI Missions";
+			sourceTree = "<group>";
+		};
+		96ADC6D427F93BBC005EC8B7 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				96ADC6D527F93BBC005EC8B7 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		96ADC6E327F93BBD005EC8B7 /* DJI MissionsTests */ = {
+			isa = PBXGroup;
+			children = (
+				96ADC6E427F93BBD005EC8B7 /* DJI_MissionsTests.swift */,
+			);
+			path = "DJI MissionsTests";
+			sourceTree = "<group>";
+		};
+		96ADC6ED27F93BBD005EC8B7 /* DJI MissionsUITests */ = {
+			isa = PBXGroup;
+			children = (
+				96ADC6EE27F93BBD005EC8B7 /* DJI_MissionsUITests.swift */,
+				96ADC6F027F93BBD005EC8B7 /* DJI_MissionsUITestsLaunchTests.swift */,
+			);
+			path = "DJI MissionsUITests";
+			sourceTree = "<group>";
+		};
+		96ADC6FD27F93DA3005EC8B7 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				96ADC6FE27F93DBB005EC8B7 /* ProductCommunicationManager.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		96ADC6CA27F93BBA005EC8B7 /* DJI Missions */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 96ADC6F427F93BBD005EC8B7 /* Build configuration list for PBXNativeTarget "DJI Missions" */;
+			buildPhases = (
+				7EA2C4FA79CF36CB545694D4 /* [CP] Check Pods Manifest.lock */,
+				96ADC6C727F93BBA005EC8B7 /* Sources */,
+				96ADC6C827F93BBA005EC8B7 /* Frameworks */,
+				96ADC6C927F93BBA005EC8B7 /* Resources */,
+				4D400B6637EC079A9B99055C /* [CP] Embed Pods Frameworks */,
+				BC531DBCF343552DF796E6DF /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "DJI Missions";
+			productName = "DJI Missions";
+			productReference = 96ADC6CB27F93BBA005EC8B7 /* DJI Missions.app */;
+			productType = "com.apple.product-type.application";
+		};
+		96ADC6DF27F93BBD005EC8B7 /* DJI MissionsTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 96ADC6F727F93BBD005EC8B7 /* Build configuration list for PBXNativeTarget "DJI MissionsTests" */;
+			buildPhases = (
+				96ADC6DC27F93BBD005EC8B7 /* Sources */,
+				96ADC6DD27F93BBD005EC8B7 /* Frameworks */,
+				96ADC6DE27F93BBD005EC8B7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				96ADC6E227F93BBD005EC8B7 /* PBXTargetDependency */,
+			);
+			name = "DJI MissionsTests";
+			productName = "DJI MissionsTests";
+			productReference = 96ADC6E027F93BBD005EC8B7 /* DJI MissionsTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		96ADC6E927F93BBD005EC8B7 /* DJI MissionsUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 96ADC6FA27F93BBD005EC8B7 /* Build configuration list for PBXNativeTarget "DJI MissionsUITests" */;
+			buildPhases = (
+				96ADC6E627F93BBD005EC8B7 /* Sources */,
+				96ADC6E727F93BBD005EC8B7 /* Frameworks */,
+				96ADC6E827F93BBD005EC8B7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				96ADC6EC27F93BBD005EC8B7 /* PBXTargetDependency */,
+			);
+			name = "DJI MissionsUITests";
+			productName = "DJI MissionsUITests";
+			productReference = 96ADC6EA27F93BBD005EC8B7 /* DJI MissionsUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		96ADC6C327F93BBA005EC8B7 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1320;
+				LastUpgradeCheck = 1320;
+				TargetAttributes = {
+					96ADC6CA27F93BBA005EC8B7 = {
+						CreatedOnToolsVersion = 13.2.1;
+					};
+					96ADC6DF27F93BBD005EC8B7 = {
+						CreatedOnToolsVersion = 13.2.1;
+						TestTargetID = 96ADC6CA27F93BBA005EC8B7;
+					};
+					96ADC6E927F93BBD005EC8B7 = {
+						CreatedOnToolsVersion = 13.2.1;
+						TestTargetID = 96ADC6CA27F93BBA005EC8B7;
+					};
+				};
+			};
+			buildConfigurationList = 96ADC6C627F93BBA005EC8B7 /* Build configuration list for PBXProject "DJI Missions" */;
+			compatibilityVersion = "Xcode 13.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 96ADC6C227F93BBA005EC8B7;
+			productRefGroup = 96ADC6CC27F93BBA005EC8B7 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				96ADC6CA27F93BBA005EC8B7 /* DJI Missions */,
+				96ADC6DF27F93BBD005EC8B7 /* DJI MissionsTests */,
+				96ADC6E927F93BBD005EC8B7 /* DJI MissionsUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		96ADC6C927F93BBA005EC8B7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				96ADC6D627F93BBC005EC8B7 /* Preview Assets.xcassets in Resources */,
+				96ADC6D327F93BBC005EC8B7 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		96ADC6DE27F93BBD005EC8B7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		96ADC6E827F93BBD005EC8B7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		4D400B6637EC079A9B99055C /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-DJI Missions/Pods-DJI Missions-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-DJI Missions/Pods-DJI Missions-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DJI Missions/Pods-DJI Missions-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7EA2C4FA79CF36CB545694D4 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-DJI Missions-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BC531DBCF343552DF796E6DF /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-DJI Missions/Pods-DJI Missions-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-DJI Missions/Pods-DJI Missions-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DJI Missions/Pods-DJI Missions-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		96ADC6C727F93BBA005EC8B7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				96ADC6FF27F93DBB005EC8B7 /* ProductCommunicationManager.swift in Sources */,
+				9689EAA027FA8A8E0045A067 /* MissionsView.swift in Sources */,
+				96ADC6D827F93BBC005EC8B7 /* Persistence.swift in Sources */,
+				9689EAA227FA8D010045A067 /* MissionMap.swift in Sources */,
+				96F10B1827F947BF00D26D60 /* DJI_Missions.xcdatamodeld in Sources */,
+				96ADC6D127F93BBA005EC8B7 /* ContentView.swift in Sources */,
+				96ADC6CF27F93BBA005EC8B7 /* DJI_MissionsApp.swift in Sources */,
+				96ADC70327F94338005EC8B7 /* MissionView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		96ADC6DC27F93BBD005EC8B7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				96ADC6E527F93BBD005EC8B7 /* DJI_MissionsTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		96ADC6E627F93BBD005EC8B7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				96ADC6EF27F93BBD005EC8B7 /* DJI_MissionsUITests.swift in Sources */,
+				96ADC6F127F93BBD005EC8B7 /* DJI_MissionsUITestsLaunchTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		96ADC6E227F93BBD005EC8B7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 96ADC6CA27F93BBA005EC8B7 /* DJI Missions */;
+			targetProxy = 96ADC6E127F93BBD005EC8B7 /* PBXContainerItemProxy */;
+		};
+		96ADC6EC27F93BBD005EC8B7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 96ADC6CA27F93BBA005EC8B7 /* DJI Missions */;
+			targetProxy = 96ADC6EB27F93BBD005EC8B7 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		96ADC6F227F93BBD005EC8B7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		96ADC6F327F93BBD005EC8B7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		96ADC6F527F93BBD005EC8B7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E002A1530A79880225B98AF7 /* Pods-DJI Missions.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"DJI Missions/Preview Content\"";
+				DEVELOPMENT_TEAM = ZGQ92828S6;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "in.sebmart.DJI-Missions";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		96ADC6F627F93BBD005EC8B7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 371B5F8CC60518B4B7553D96 /* Pods-DJI Missions.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"DJI Missions/Preview Content\"";
+				DEVELOPMENT_TEAM = ZGQ92828S6;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "in.sebmart.DJI-Missions";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		96ADC6F827F93BBD005EC8B7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = ZGQ92828S6;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "in.sebmart.DJI-MissionsTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DJI Missions.app/DJI Missions";
+			};
+			name = Debug;
+		};
+		96ADC6F927F93BBD005EC8B7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = ZGQ92828S6;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "in.sebmart.DJI-MissionsTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DJI Missions.app/DJI Missions";
+			};
+			name = Release;
+		};
+		96ADC6FB27F93BBD005EC8B7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = ZGQ92828S6;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "in.sebmart.DJI-MissionsUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "DJI Missions";
+			};
+			name = Debug;
+		};
+		96ADC6FC27F93BBD005EC8B7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = ZGQ92828S6;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "in.sebmart.DJI-MissionsUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "DJI Missions";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		96ADC6C627F93BBA005EC8B7 /* Build configuration list for PBXProject "DJI Missions" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				96ADC6F227F93BBD005EC8B7 /* Debug */,
+				96ADC6F327F93BBD005EC8B7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		96ADC6F427F93BBD005EC8B7 /* Build configuration list for PBXNativeTarget "DJI Missions" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				96ADC6F527F93BBD005EC8B7 /* Debug */,
+				96ADC6F627F93BBD005EC8B7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		96ADC6F727F93BBD005EC8B7 /* Build configuration list for PBXNativeTarget "DJI MissionsTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				96ADC6F827F93BBD005EC8B7 /* Debug */,
+				96ADC6F927F93BBD005EC8B7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		96ADC6FA27F93BBD005EC8B7 /* Build configuration list for PBXNativeTarget "DJI MissionsUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				96ADC6FB27F93BBD005EC8B7 /* Debug */,
+				96ADC6FC27F93BBD005EC8B7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		96F10B1627F947BE00D26D60 /* DJI_Missions.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				96F10B1727F947BE00D26D60 /* DJI_Missions.xcdatamodel */,
+			);
+			currentVersion = 96F10B1727F947BE00D26D60 /* DJI_Missions.xcdatamodel */;
+			path = DJI_Missions.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 96ADC6C327F93BBA005EC8B7 /* Project object */;
+}

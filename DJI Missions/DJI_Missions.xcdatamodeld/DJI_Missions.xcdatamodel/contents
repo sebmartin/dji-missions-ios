@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19574" systemVersion="21D62" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Mission" representedClassName="Mission" syncable="YES" codeGenerationType="class">
+        <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="points" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MissionPoint" inverseName="mission" inverseEntity="MissionPoint"/>
+    </entity>
+    <entity name="MissionPoint" representedClassName="MissionPoint" syncable="YES" codeGenerationType="class">
+        <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <relationship name="mission" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Mission" inverseName="points" inverseEntity="Mission"/>
+    </entity>
+    <elements>
+        <element name="Mission" positionX="-63" positionY="-18" width="128" height="59"/>
+        <element name="MissionPoint" positionX="-63" positionY="-9" width="128" height="74"/>
+    </elements>
+</model>
