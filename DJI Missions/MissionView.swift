@@ -20,19 +20,97 @@ struct MissionView: View {
     
     @State var annotations = [MissionPoint]()
     
+    @State var isEditing = false
+    
     var body: some View {
         ZStack {
+            
             MissionMap(annotations: $annotations)
                 .edgesIgnoringSafeArea([.top, .trailing, .leading])
             VStack {
                 Spacer()
-                Button(action: { print("Add") }) {
-                    Label("Add Point", systemImage: "mappin.circle.fill")
+                if isEditing {
+                    HStack {
+                        Button(action: savePoint) {
+                            Text("Save")
+                        }
+                        .buttonStyle(.bordered)
+                        .padding([.bottom, .leading], 30)
+                        Spacer()
+                        Button(action: { isEditing = !isEditing }) {
+                            Text("Cancel")
+                        }
+                        .buttonStyle(.bordered)
+                        .padding([.bottom, .trailing], 30)
+                    }
+                } else {
+                    Button(action: addPoint) {
+                        Label("Add Point", systemImage: "mappin.circle.fill")
+                    }
+                    .buttonStyle(.bordered)
+                    .padding(.bottom, 30)
                 }
-                .buttonStyle(.bordered)
-                .padding(.bottom, 20)
+            }
+            if isEditing {
+                Target(size: 40)
+                    .foregroundColor(.red)
+                    .allowsHitTesting(false)
             }
         }
+    }
+    
+    private func addPoint() {
+        isEditing = !isEditing
+    }
+    
+    private func savePoint() {
+        isEditing = !isEditing
+    }
+}
+
+struct Target: View {
+    var size: CGFloat
+    
+    var body: some View {
+        ZStack {
+            Circle()
+                .strokeBorder(lineWidth: size / 15.0, antialiased: true)
+            Circle()
+                .frame(width: 4.0, height: 4.0, alignment: .center)
+            HStack {
+                Group{
+                    VStack {
+                        Triangle()
+                            .rotation(Angle(degrees: 135))
+                            .scale(1.2)
+                        Triangle()
+                            .rotation(Angle(degrees: 45))
+                            .scale(1.2)
+                    }
+                    VStack {
+                        Triangle()
+                            .rotation(Angle(degrees: -135))
+                            .scale(1.2)
+                        Triangle()
+                            .rotation(Angle(degrees: -45))
+                            .scale(1.2)
+                    }
+                }
+            }
+        }.frame(width: size, height: size, alignment: .center)
+    }
+}
+
+struct Triangle: Shape {
+    func path(in rect: CGRect) -> Path {
+        var path = Path()
+
+        path.move(to: CGPoint(x: rect.midX, y: rect.minY))
+        path.addLine(to: CGPoint(x: rect.minX, y: rect.maxY))
+        path.addLine(to: CGPoint(x: rect.maxX, y: rect.maxY))
+        path.addLine(to: CGPoint(x: rect.midX, y: rect.minY))
+
+        return path
     }
 }
 

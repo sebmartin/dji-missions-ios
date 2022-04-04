@@ -13,8 +13,8 @@ struct MissionMap: UIViewRepresentable {
     
     func makeUIView(context: Context) -> some UIView {
         let mapView = MKMapView()
-        mapView.showsUserLocation = true
-        mapView.setCenter(mapView.userLocation.coordinate, animated: false)
+//        mapView.showsUserLocation = true
+//        mapView.setCenter(mapView.userLocation.coordinate, animated: false)
         return mapView
     }
     
