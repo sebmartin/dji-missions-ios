@@ -8,29 +8,47 @@
 import SwiftUI
 import MapKit
 
-let SPAN_PADDING_FACTOR = 1.1
+let SPAN_PADDING_FACTOR = 1.5
 
-struct MissionMap: UIViewRepresentable {
+struct MissionMapView: UIViewRepresentable {
     @ObservedObject var mission: Mission
     
     @Binding var latitude: Double
     @Binding var longitude: Double
+    @Binding var selectedPoint: MissionPoint?
     
-    func makeUIView(context: Context) -> some UIView {
+    func makeUIView(context: Context) -> some MKMapView {
         let mapView = MKMapView()
-        
-        let region = MissionMap.pointsBoundingRegion(mission: mission)
-        if let region = region {
+        mapView.delegate = context.coordinator
+        if let region = MissionMapView.pointsBoundingRegion(mission: mission) {
             mapView.region = region
-            latitude = region.center.latitude
-            longitude = region.center.longitude
         }
-        
         return mapView
     }
     
     func updateUIView(_ uiView: UIViewType, context: Context) {
+        updateAnnotations(uiView)
+    }
+    
+    func updateAnnotations(_ mapView: MKMapView) {
+        guard let annotations = mapView.annotations as? [MissionPoint],
+              let points = mission.points?.array as? [MissionPoint] else {
+                  return
+              }
         
+        // Remove deleted annotations
+        annotations.forEach { annotation in
+            if !points.contains(annotation) {
+                mapView.removeAnnotation(annotation)
+            }
+        }
+        
+        // Add new annotations
+        points.forEach { point in
+            if !annotations.contains(point) {
+                mapView.addAnnotation(point)
+            }
+        }
     }
     
     static func pointsBoundingRegion(mission: Mission) -> MKCoordinateRegion? {
@@ -65,5 +83,37 @@ struct MissionMap: UIViewRepresentable {
             longitudeDelta: (cornerPoints.1.longitude - cornerPoints.0.longitude) * SPAN_PADDING_FACTOR
         )
         return MKCoordinateRegion(center: center, span: span)
+    }
+    
+    // MARK: - Coordinator
+    
+    class Coordinator: NSObject, MKMapViewDelegate {
+        var parent: MissionMapView
+        
+        init(_ parent: MissionMapView) {
+            self.parent = parent
+        }
+        
+        func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+            parent.latitude = mapView.region.center.latitude
+            parent.longitude = mapView.region.center.longitude
+        }
+        
+        func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+            guard let selectedAnnotation = mapView.selectedAnnotations.first else {
+                return
+            }
+            if let selectedPoint = selectedAnnotation as? MissionPoint {
+                parent.selectedPoint = selectedPoint
+            } else {
+                print("Unknown selected annotation: \(selectedAnnotation)")
+            }
+        }
+            
+        
+    }
+    
+    func makeCoordinator() -> Coordinator {
+        return Coordinator(self)
     }
 }

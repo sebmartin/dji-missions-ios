@@ -52,7 +52,7 @@ class MissionViewTests: XCTestCase {
 
     func testPointsBoundingRegionOverLibertyIsland() throws {
         let mission = missionOverLibertyIslandFourPoints()
-        let result = MissionMap.pointsBoundingRegion(mission: mission)
+        let result = MissionMapView.pointsBoundingRegion(mission: mission)
         
         XCTAssertEqual(result?.center, CLLocationCoordinate2D(
             latitude: 40.6897805,
@@ -67,7 +67,7 @@ class MissionViewTests: XCTestCase {
 
     func testPointsBoundingRegionNoPoints() throws {
         let mission = missionNoPoints()
-        let result = MissionMap.pointsBoundingRegion(mission: mission)
+        let result = MissionMapView.pointsBoundingRegion(mission: mission)
         
         XCTAssertNil(result)
     }

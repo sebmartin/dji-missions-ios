@@ -9,26 +9,17 @@ import SwiftUI
 import MapKit
 
 struct MissionView: View {
+    @Environment(\.managedObjectContext) private var viewContext
+
     @ObservedObject var mission: Mission
-    
-    @State private var showAlert = false
-    
-    @State private var region = MKCoordinateRegion(
-        center: CLLocationCoordinate2D(latitude: 51.507222, longitude: -0.1275),
-        span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5)
-    )
-    
-    @State var annotations = [MissionPoint]()
-    
     @State var isEditing = false
-    
     @State var latitude = 0.0
     @State var longitude = 0.0
+    @State var selectedPoint: MissionPoint? = nil
     
     var body: some View {
         ZStack {
-            
-            MissionMap(mission: mission, latitude: $latitude, longitude: $longitude)
+            MissionMapView(mission: mission, latitude: $latitude, longitude: $longitude, selectedPoint: $selectedPoint)
                 .edgesIgnoringSafeArea([.top, .trailing, .leading])
             VStack {
                 Text("\(latitude), \(longitude)")
@@ -36,13 +27,17 @@ struct MissionView: View {
                 if isEditing {
                     HStack {
                         Button(action: savePoint) {
-                            Text("Save")
+                            Label("Add Point", systemImage: "mappin.and.ellipse")
                         }
                         .buttonStyle(.bordered)
                         .padding([.bottom, .leading], 30)
                         Spacer()
+                        if let point = selectedPoint {
+                            Text("\(point.latitude), \(point.longitude)")
+                            Spacer()
+                        }
                         Button(action: { isEditing = !isEditing }) {
-                            Text("Cancel")
+                            Label("Done", systemImage: "checkmark.circle")
                         }
                         .buttonStyle(.bordered)
                         .padding([.bottom, .trailing], 30)
@@ -68,53 +63,9 @@ struct MissionView: View {
     }
     
     private func savePoint() {
-        isEditing = !isEditing
-    }
-}
-
-struct Target: View {
-    var size: CGFloat
-    
-    var body: some View {
-        ZStack {
-            Circle()
-                .strokeBorder(lineWidth: size / 15.0, antialiased: true)
-            Circle()
-                .frame(width: 4.0, height: 4.0, alignment: .center)
-            HStack {
-                Group{
-                    VStack {
-                        Triangle()
-                            .rotation(Angle(degrees: 135))
-                            .scale(1.2)
-                        Triangle()
-                            .rotation(Angle(degrees: 45))
-                            .scale(1.2)
-                    }
-                    VStack {
-                        Triangle()
-                            .rotation(Angle(degrees: -135))
-                            .scale(1.2)
-                        Triangle()
-                            .rotation(Angle(degrees: -45))
-                            .scale(1.2)
-                    }
-                }
-            }
-        }.frame(width: size, height: size, alignment: .center)
-    }
-}
-
-struct Triangle: Shape {
-    func path(in rect: CGRect) -> Path {
-        var path = Path()
-
-        path.move(to: CGPoint(x: rect.midX, y: rect.minY))
-        path.addLine(to: CGPoint(x: rect.minX, y: rect.maxY))
-        path.addLine(to: CGPoint(x: rect.maxX, y: rect.maxY))
-        path.addLine(to: CGPoint(x: rect.midX, y: rect.minY))
-
-        return path
+        let newPoint = MissionPoint(latitude, longitude, context: viewContext)
+        mission.addToPoints(newPoint)
+        try? viewContext.save()
     }
 }
 
@@ -135,7 +86,7 @@ struct MissionView_Previews: PreviewProvider {
         Group {
             MissionView(mission: previewMission())
                 .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
-                .previewInterfaceOrientation(.landscapeLeft)
+                .previewInterfaceOrientation(.portrait)
         }
     }
 }
