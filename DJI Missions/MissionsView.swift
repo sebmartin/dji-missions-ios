@@ -20,7 +20,7 @@ struct MissionsView: View {
             List {
                 ForEach(missions) { mission in
                     NavigationLink {
-                        MissionView(item: mission)
+                        MissionView(mission: mission)
                     } label: {
                         Text(mission.timestamp!, formatter: itemFormatter)
                     }

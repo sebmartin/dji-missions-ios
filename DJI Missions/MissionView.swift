@@ -9,7 +9,7 @@ import SwiftUI
 import MapKit
 
 struct MissionView: View {
-    var item: Mission
+    @ObservedObject var mission: Mission
     
     @State private var showAlert = false
     
@@ -22,12 +22,16 @@ struct MissionView: View {
     
     @State var isEditing = false
     
+    @State var latitude = 0.0
+    @State var longitude = 0.0
+    
     var body: some View {
         ZStack {
             
-            MissionMap(annotations: $annotations)
+            MissionMap(mission: mission, latitude: $latitude, longitude: $longitude)
                 .edgesIgnoringSafeArea([.top, .trailing, .leading])
             VStack {
+                Text("\(latitude), \(longitude)")
                 Spacer()
                 if isEditing {
                     HStack {
@@ -115,10 +119,23 @@ struct Triangle: Shape {
 }
 
 struct MissionView_Previews: PreviewProvider {
+    static func previewMission() -> Mission {
+        let context = PersistenceController.preview.container.viewContext
+        let mission = Mission(context: context)
+        mission.points = [
+            MissionPoint(40.691265, -74.047328, context: context),
+            MissionPoint(40.690484, -74.043004, context: context),
+            MissionPoint(40.688296, -74.045483, context: context),
+            MissionPoint(40.691265, -74.047328, context: context),
+        ]
+        return mission
+    }
+    
     static var previews: some View {
         Group {
-            let mission = Mission(context: PersistenceController.preview.container.viewContext)
-            MissionView(item: mission).environment(\.managedObjectContext, PersistenceController.preview.container.viewContext).previewInterfaceOrientation(.portrait)
+            MissionView(mission: previewMission())
+                .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+                .previewInterfaceOrientation(.landscapeLeft)
         }
     }
 }
