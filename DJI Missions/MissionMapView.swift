@@ -23,11 +23,15 @@ struct MissionMapView: UIViewRepresentable {
         if let region = MissionMapView.pointsBoundingRegion(mission: mission) {
             mapView.region = region
         }
+        if let overlay = mission.pathOverlay() {
+            mapView.addOverlay(overlay)
+        }
         return mapView
     }
     
     func updateUIView(_ uiView: UIViewType, context: Context) {
         updateAnnotations(uiView)
+        updateSelection(uiView)
     }
     
     func updateAnnotations(_ mapView: MKMapView) {
@@ -47,6 +51,16 @@ struct MissionMapView: UIViewRepresentable {
         points.forEach { point in
             if !annotations.contains(point) {
                 mapView.addAnnotation(point)
+            }
+        }
+    }
+    
+    func updateSelection(_ mapView: MKMapView) {
+        if let selectedPoint = selectedPoint {
+            mapView.selectAnnotation(selectedPoint, animated: true)
+        } else {
+            mapView.selectedAnnotations.forEach {
+                mapView.deselectAnnotation($0, animated: true)
             }
         }
     }
@@ -87,7 +101,7 @@ struct MissionMapView: UIViewRepresentable {
     
     // MARK: - Coordinator
     
-    class Coordinator: NSObject, MKMapViewDelegate {
+    internal class Coordinator: NSObject, MKMapViewDelegate {
         var parent: MissionMapView
         
         init(_ parent: MissionMapView) {
@@ -109,8 +123,24 @@ struct MissionMapView: UIViewRepresentable {
                 print("Unknown selected annotation: \(selectedAnnotation)")
             }
         }
-            
         
+        func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
+            parent.selectedPoint = nil
+        }
+        
+        func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+            switch overlay {
+            case let polyline as MKPolyline:
+                let renderer = MKPolylineRenderer(polyline: polyline)
+                renderer.lineWidth = 1.5
+                renderer.strokeColor = .gray
+                renderer.lineDashPattern = [3, 3]
+                return renderer
+                
+            default:
+                fatalError("Unexpected MKOverlay type")
+            }
+        }
     }
     
     func makeCoordinator() -> Coordinator {

@@ -11,6 +11,7 @@
 		965CF3EC27FB3D9B006E5F8B /* MissionViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965CF3EB27FB3D9B006E5F8B /* MissionViewTests.swift */; };
 		965CF3F027FB7953006E5F8B /* TargetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965CF3EF27FB7953006E5F8B /* TargetView.swift */; };
 		965CF3F227FB81D4006E5F8B /* MissionPoint+MKAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965CF3F127FB81D4006E5F8B /* MissionPoint+MKAnnotation.swift */; };
+		965CF3F427FB8CAF006E5F8B /* Mission+MKOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965CF3F327FB8CAF006E5F8B /* Mission+MKOverlay.swift */; };
 		9689EAA027FA8A8E0045A067 /* MissionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9689EA9F27FA8A8E0045A067 /* MissionsView.swift */; };
 		9689EAA227FA8D010045A067 /* MissionMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9689EAA127FA8D010045A067 /* MissionMapView.swift */; };
 		96ADC6CF27F93BBA005EC8B7 /* DJI_MissionsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96ADC6CE27F93BBA005EC8B7 /* DJI_MissionsApp.swift */; };
@@ -50,6 +51,7 @@
 		965CF3EB27FB3D9B006E5F8B /* MissionViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionViewTests.swift; sourceTree = "<group>"; };
 		965CF3EF27FB7953006E5F8B /* TargetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetView.swift; sourceTree = "<group>"; };
 		965CF3F127FB81D4006E5F8B /* MissionPoint+MKAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MissionPoint+MKAnnotation.swift"; sourceTree = "<group>"; };
+		965CF3F327FB8CAF006E5F8B /* Mission+MKOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Mission+MKOverlay.swift"; sourceTree = "<group>"; };
 		9689EA9F27FA8A8E0045A067 /* MissionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionsView.swift; sourceTree = "<group>"; };
 		9689EAA127FA8D010045A067 /* MissionMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionMapView.swift; sourceTree = "<group>"; };
 		96ADC6CB27F93BBA005EC8B7 /* DJI Missions.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DJI Missions.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -118,6 +120,7 @@
 			children = (
 				965CF3E927FB3106006E5F8B /* MissionPoint+Extensions.swift */,
 				965CF3F127FB81D4006E5F8B /* MissionPoint+MKAnnotation.swift */,
+				965CF3F327FB8CAF006E5F8B /* Mission+MKOverlay.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -390,6 +393,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				96ADC6FF27F93DBB005EC8B7 /* ProductCommunicationManager.swift in Sources */,
+				965CF3F427FB8CAF006E5F8B /* Mission+MKOverlay.swift in Sources */,
 				9689EAA027FA8A8E0045A067 /* MissionsView.swift in Sources */,
 				965CF3F227FB81D4006E5F8B /* MissionPoint+MKAnnotation.swift in Sources */,
 				96ADC6D827F93BBC005EC8B7 /* Persistence.swift in Sources */,

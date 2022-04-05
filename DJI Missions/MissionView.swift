@@ -8,14 +8,38 @@
 import SwiftUI
 import MapKit
 
+
 struct MissionView: View {
     @Environment(\.managedObjectContext) private var viewContext
 
     @ObservedObject var mission: Mission
-    @State var isEditing = false
+    @State var viewMode: ViewMode
     @State var latitude = 0.0
     @State var longitude = 0.0
     @State var selectedPoint: MissionPoint? = nil
+    
+    enum ViewMode {
+        case view
+        case appendFirst
+        case appendBefore(MissionPoint)
+        case appendAfter(MissionPoint)
+        
+        func isEditing() -> Bool {
+            switch self {
+            case .view:
+                return false
+            default:
+                return true
+            }
+        }
+    }
+    
+    init(mission: Mission) {
+        self.mission = mission
+        let pointCount = mission.points?.count ?? 0
+        self.viewMode = pointCount > 0 ? .view : .appendFirst
+        print("view mode: \(self.viewMode)")
+    }
     
     var body: some View {
         ZStack {
@@ -24,33 +48,33 @@ struct MissionView: View {
             VStack {
                 Text("\(latitude), \(longitude)")
                 Spacer()
-                if isEditing {
-                    HStack {
-                        Button(action: savePoint) {
-                            Label("Add Point", systemImage: "mappin.and.ellipse")
-                        }
-                        .buttonStyle(.bordered)
-                        .padding([.bottom, .leading], 30)
-                        Spacer()
-                        if let point = selectedPoint {
-                            Text("\(point.latitude), \(point.longitude)")
-                            Spacer()
-                        }
-                        Button(action: { isEditing = !isEditing }) {
-                            Label("Done", systemImage: "checkmark.circle")
-                        }
-                        .buttonStyle(.bordered)
-                        .padding([.bottom, .trailing], 30)
+                
+                if selectedPoint != nil {
+                    SelectedPointControls(viewMode: $viewMode, point: $selectedPoint)
+                } else if case .appendFirst = viewMode {
+                    InsertPointControls(viewMode: $viewMode, okText: "Set Starting Point", cancelText: "Cancel") {
+                        let point = insertPoint()
+                        viewMode = .appendAfter(point)
                     }
-                } else {
-                    Button(action: addPoint) {
-                        Label("Add Point", systemImage: "mappin.circle.fill")
+                } else if case .appendBefore(let point) = viewMode {
+                    InsertPointControls(viewMode: $viewMode, okText: "Set Next Point", cancelText: "Done") {
+                        _ = insertPoint(before: point)
+                        viewMode = .view
                     }
-                    .buttonStyle(.bordered)
-                    .padding(.bottom, 30)
+                } else if case .appendAfter(let point) = viewMode {
+                    InsertPointControls(viewMode: $viewMode, okText: "Set Next Point", cancelText: "Done") {
+                        let newPoint = insertPoint(after: point)
+                        if selectedPoint == point {
+                            viewMode = .view
+                        } else {
+                            viewMode = .appendAfter(newPoint)
+                        }
+                    }
+                } else if case .view = viewMode {
+                    Text("View mode")
                 }
             }
-            if isEditing {
+            if viewMode.isEditing() {
                 Target(size: 40)
                     .foregroundColor(.red)
                     .allowsHitTesting(false)
@@ -58,14 +82,71 @@ struct MissionView: View {
         }
     }
     
-    private func addPoint() {
-        isEditing = !isEditing
+    private func insertPoint(after: MissionPoint? = nil) -> MissionPoint {
+        let newPoint = MissionPoint(latitude, longitude, context: viewContext)
+        
+        if let after = after, let pointIndex = mission.points?.index(of: after) {
+            mission.insertIntoPoints(newPoint, at: pointIndex)
+        } else {
+            mission.addToPoints(newPoint)
+        }
+        try? viewContext.save()
+        return newPoint
+    }
+        
+    private func insertPoint(before: MissionPoint) -> MissionPoint {
+        let newPoint = MissionPoint(latitude, longitude, context: viewContext)
+        
+        if let pointIndex = mission.points?.index(of: before) {
+            mission.insertIntoPoints(newPoint, at: pointIndex + 1)
+        } else {
+            print("WARN - failed to insert new point before \(before)")
+            mission.addToPoints(newPoint)
+        }
+        try? viewContext.save()
+        return newPoint
     }
     
-    private func savePoint() {
-        let newPoint = MissionPoint(latitude, longitude, context: viewContext)
-        mission.addToPoints(newPoint)
-        try? viewContext.save()
+    struct InsertPointControls: View {
+        @Binding var viewMode: ViewMode
+        let okText: String
+        let cancelText: String
+        let insertAction: () -> Void
+        
+        var body: some View {
+            HStack {
+                Button(action: insertAction) {
+                    Label(okText, systemImage: "mappin.and.ellipse")
+                }
+                Spacer()
+                Button(action: cancel) {
+                    Label(cancelText, systemImage: "xmark.app")
+                }
+            }
+            .buttonStyle(.bordered)
+            .padding([.bottom], 30)
+            .padding([.leading, .trailing], 10)
+        }
+        
+        func cancel() {
+            viewMode = .view
+        }
+    }
+    
+    struct SelectedPointControls: View {
+        @Binding var viewMode: ViewMode
+        @Binding var point: MissionPoint?
+
+        var body: some View {
+            HStack {
+                Button(action: { point = nil }) {
+                    Text("Deselect")
+                }
+            }
+            .buttonStyle(.bordered)
+            .padding([.bottom], 30)
+            .padding([.leading, .trailing], 10)
+        }
     }
 }
 
