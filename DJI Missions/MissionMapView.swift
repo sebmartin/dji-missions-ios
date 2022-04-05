@@ -12,10 +12,14 @@ let SPAN_PADDING_FACTOR = 1.5
 
 struct MissionMapView: UIViewRepresentable {
     @ObservedObject var mission: Mission
-    
     @Binding var latitude: Double
     @Binding var longitude: Double
-    @Binding var selectedPoint: MissionPoint?
+    
+    init(mission: Mission, latitude: Binding<Double>, longitude: Binding<Double>) {
+        self.mission = mission
+        self._latitude = latitude
+        self._longitude = longitude
+    }
     
     func makeUIView(context: Context) -> some MKMapView {
         let mapView = MKMapView()
@@ -31,7 +35,6 @@ struct MissionMapView: UIViewRepresentable {
     
     func updateUIView(_ uiView: UIViewType, context: Context) {
         updateAnnotations(uiView)
-        updateSelection(uiView)
     }
     
     func updateAnnotations(_ mapView: MKMapView) {
@@ -51,16 +54,6 @@ struct MissionMapView: UIViewRepresentable {
         points.forEach { point in
             if !annotations.contains(point) {
                 mapView.addAnnotation(point)
-            }
-        }
-    }
-    
-    func updateSelection(_ mapView: MKMapView) {
-        if let selectedPoint = selectedPoint {
-            mapView.selectAnnotation(selectedPoint, animated: true)
-        } else {
-            mapView.selectedAnnotations.forEach {
-                mapView.deselectAnnotation($0, animated: true)
             }
         }
     }
@@ -99,6 +92,15 @@ struct MissionMapView: UIViewRepresentable {
         return MKCoordinateRegion(center: center, span: span)
     }
     
+    // MARK: - Modifiers
+    
+    fileprivate var onPointSelectionChangeCallback: ((MissionPoint?) -> Void)?
+    func onPointSelectionChange(_ callback: @escaping (MissionPoint?) -> Void) -> Self {
+        var view = self
+        view.onPointSelectionChangeCallback = callback
+        return view
+    }
+    
     // MARK: - Coordinator
     
     internal class Coordinator: NSObject, MKMapViewDelegate {
@@ -118,14 +120,14 @@ struct MissionMapView: UIViewRepresentable {
                 return
             }
             if let selectedPoint = selectedAnnotation as? MissionPoint {
-                parent.selectedPoint = selectedPoint
+                self.parent.onPointSelectionChangeCallback?(selectedPoint)
             } else {
                 print("Unknown selected annotation: \(selectedAnnotation)")
             }
         }
         
         func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
-            parent.selectedPoint = nil
+            self.parent.onPointSelectionChangeCallback?(nil)
         }
         
         func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {

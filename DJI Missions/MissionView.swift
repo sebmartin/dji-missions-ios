@@ -20,6 +20,7 @@ struct MissionView: View {
     
     enum ViewMode {
         case view
+        case selectedPoint(MissionPoint)
         case appendFirst
         case appendBefore(MissionPoint)
         case appendAfter(MissionPoint)
@@ -27,6 +28,8 @@ struct MissionView: View {
         func isEditing() -> Bool {
             switch self {
             case .view:
+                return false
+            case .selectedPoint:
                 return false
             default:
                 return true
@@ -43,14 +46,22 @@ struct MissionView: View {
     
     var body: some View {
         ZStack {
-            MissionMapView(mission: mission, latitude: $latitude, longitude: $longitude, selectedPoint: $selectedPoint)
+            MissionMapView(mission: mission, latitude: $latitude, longitude: $longitude)
+                .onPointSelectionChange { selectedPoint in
+                    if let selectedPoint = selectedPoint {
+                        viewMode = .selectedPoint(selectedPoint)
+                    } else {
+                        viewMode = .view
+                    }
+                }
                 .edgesIgnoringSafeArea([.top, .trailing, .leading])
+                
             VStack {
                 Text("\(latitude), \(longitude)")
                 Spacer()
                 
-                if selectedPoint != nil {
-                    SelectedPointControls(viewMode: $viewMode, point: $selectedPoint)
+                if case .selectedPoint(let selectedPoint) = viewMode {
+                    SelectedPointControls(viewMode: $viewMode, point: selectedPoint, onDeletePoint: { delete(point: $0) })
                 } else if case .appendFirst = viewMode {
                     InsertPointControls(viewMode: $viewMode, okText: "Set Starting Point", cancelText: "Cancel") {
                         let point = insertPoint()
@@ -107,6 +118,11 @@ struct MissionView: View {
         return newPoint
     }
     
+    private func delete(point: MissionPoint) {
+        mission.removeFromPoints(point)
+        try? viewContext.save()
+    }
+    
     struct InsertPointControls: View {
         @Binding var viewMode: ViewMode
         let okText: String
@@ -115,17 +131,10 @@ struct MissionView: View {
         
         var body: some View {
             HStack {
-                Button(action: insertAction) {
-                    Label(okText, systemImage: "mappin.and.ellipse")
-                }
+                ControlButton(text: okText, systemImage: "mappin.and.ellipse", action: insertAction)
                 Spacer()
-                Button(action: cancel) {
-                    Label(cancelText, systemImage: "xmark.app")
-                }
+                ControlButton(text: cancelText, systemImage: "xmark.app", action: cancel)
             }
-            .buttonStyle(.bordered)
-            .padding([.bottom], 30)
-            .padding([.leading, .trailing], 10)
         }
         
         func cancel() {
@@ -135,13 +144,43 @@ struct MissionView: View {
     
     struct SelectedPointControls: View {
         @Binding var viewMode: ViewMode
-        @Binding var point: MissionPoint?
+        var point: MissionPoint
+        let onDeletePoint: (MissionPoint) -> Void
 
         var body: some View {
-            HStack {
-                Button(action: { point = nil }) {
-                    Text("Deselect")
+            VStack {
+                HStack {
+                    ControlButton(text: "Insert Before", systemImage: "arrow.uturn.backward.circle") {
+                        viewMode = .appendBefore(point)
+                    }
+                    Spacer()
+                    ControlButton(text: "Insert After", systemImage: "arrow.uturn.right.circle") {
+                        viewMode = .appendAfter(point)
+                    }
                 }
+                HStack {
+                    ControlButton(text: "Move", systemImage: "arrow.up.and.down.and.arrow.left.and.right") {
+                        // TODO
+                    }
+                    Spacer()
+                    ControlButton(text: "Delete", systemImage: "minus.circle") {
+                        onDeletePoint(point)
+                        viewMode = .view
+                    }
+                    .foregroundColor(.red)
+                }
+            }
+        }
+    }
+    
+    struct ControlButton: View {
+        let text: String
+        let systemImage: String
+        let action: () -> Void
+        
+        var body: some View {
+            Button(action: action) {
+                Label(text, systemImage: systemImage)
             }
             .buttonStyle(.bordered)
             .padding([.bottom], 30)
