@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		964772B127FCDB4000428465 /* MissionOverlayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964772B027FCDB4000428465 /* MissionOverlayTests.swift */; };
+		964772B327FCDBA600428465 /* CoreDataFixtures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964772B227FCDBA600428465 /* CoreDataFixtures.swift */; };
 		965CF3EA27FB3106006E5F8B /* MissionPoint+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965CF3E927FB3106006E5F8B /* MissionPoint+Extensions.swift */; };
 		965CF3EC27FB3D9B006E5F8B /* MissionViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965CF3EB27FB3D9B006E5F8B /* MissionViewTests.swift */; };
 		965CF3F027FB7953006E5F8B /* TargetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965CF3EF27FB7953006E5F8B /* TargetView.swift */; };
@@ -47,6 +49,8 @@
 
 /* Begin PBXFileReference section */
 		371B5F8CC60518B4B7553D96 /* Pods-DJI Missions.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DJI Missions.release.xcconfig"; path = "Target Support Files/Pods-DJI Missions/Pods-DJI Missions.release.xcconfig"; sourceTree = "<group>"; };
+		964772B027FCDB4000428465 /* MissionOverlayTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionOverlayTests.swift; sourceTree = "<group>"; };
+		964772B227FCDBA600428465 /* CoreDataFixtures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataFixtures.swift; sourceTree = "<group>"; };
 		965CF3E927FB3106006E5F8B /* MissionPoint+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MissionPoint+Extensions.swift"; sourceTree = "<group>"; };
 		965CF3EB27FB3D9B006E5F8B /* MissionViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionViewTests.swift; sourceTree = "<group>"; };
 		965CF3EF27FB7953006E5F8B /* TargetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetView.swift; sourceTree = "<group>"; };
@@ -177,8 +181,10 @@
 		96ADC6E327F93BBD005EC8B7 /* DJI MissionsTests */ = {
 			isa = PBXGroup;
 			children = (
+				964772B227FCDBA600428465 /* CoreDataFixtures.swift */,
 				96ADC6E427F93BBD005EC8B7 /* DJI_MissionsTests.swift */,
 				965CF3EB27FB3D9B006E5F8B /* MissionViewTests.swift */,
+				964772B027FCDB4000428465 /* MissionOverlayTests.swift */,
 			);
 			path = "DJI MissionsTests";
 			sourceTree = "<group>";
@@ -411,7 +417,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				964772B127FCDB4000428465 /* MissionOverlayTests.swift in Sources */,
 				96ADC6E527F93BBD005EC8B7 /* DJI_MissionsTests.swift in Sources */,
+				964772B327FCDBA600428465 /* CoreDataFixtures.swift in Sources */,
 				965CF3EC27FB3D9B006E5F8B /* MissionViewTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

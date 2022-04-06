@@ -32,26 +32,9 @@ class MissionViewTests: XCTestCase {
     override func tearDownWithError() throws {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
-    
-    private func missionNoPoints() -> Mission {
-        let context = PersistenceController.preview.container.viewContext
-        return Mission(context: context)
-    }
-    
-    private func missionOverLibertyIslandFourPoints() -> Mission {
-        let context = PersistenceController.preview.container.viewContext
-        let mission = missionNoPoints()
-        mission.points = [
-            MissionPoint(40.691265, -74.047328, context: context),
-            MissionPoint(40.690484, -74.043004, context: context),
-            MissionPoint(40.688296, -74.045483, context: context),
-            MissionPoint(40.691265, -74.047328, context: context),
-        ]
-        return mission
-    }
 
     func testPointsBoundingRegionOverLibertyIsland() throws {
-        let mission = missionOverLibertyIslandFourPoints()
+        let mission = CoreDataFixtures.missionOverLibertyIslandFourPoints()
         let result = MissionMapView.pointsBoundingRegion(mission: mission)
         
         XCTAssertEqual(result?.center, CLLocationCoordinate2D(
@@ -66,7 +49,7 @@ class MissionViewTests: XCTestCase {
     }
 
     func testPointsBoundingRegionNoPoints() throws {
-        let mission = missionNoPoints()
+        let mission = CoreDataFixtures.missionNoPoints()
         let result = MissionMapView.pointsBoundingRegion(mission: mission)
         
         XCTAssertNil(result)

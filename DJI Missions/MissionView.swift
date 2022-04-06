@@ -24,6 +24,7 @@ struct MissionView: View {
         case appendFirst
         case appendBefore(MissionPoint)
         case appendAfter(MissionPoint)
+        case movePoint(MissionPoint)
         
         func isEditing() -> Bool {
             switch self {
@@ -68,18 +69,23 @@ struct MissionView: View {
                         viewMode = .appendAfter(point)
                     }
                 } else if case .appendBefore(let point) = viewMode {
-                    InsertPointControls(viewMode: $viewMode, okText: "Set Next Point", cancelText: "Done") {
+                    InsertPointControls(viewMode: $viewMode, okText: "Add Point", cancelText: "Done") {
                         _ = insertPoint(before: point)
                         viewMode = .view
                     }
                 } else if case .appendAfter(let point) = viewMode {
-                    InsertPointControls(viewMode: $viewMode, okText: "Set Next Point", cancelText: "Done") {
+                    InsertPointControls(viewMode: $viewMode, okText: "Add Point", cancelText: "Done") {
                         let newPoint = insertPoint(after: point)
                         if selectedPoint == point {
                             viewMode = .view
                         } else {
                             viewMode = .appendAfter(newPoint)
                         }
+                    }
+                } else if case .movePoint(let point) = viewMode {
+                    InsertPointControls(viewMode: $viewMode, okText: "Save", cancelText: "Cancel") {
+                        move(point: point, to: CLLocationCoordinate2D(latitude: latitude, longitude: longitude))
+                        viewMode = .selectedPoint(point)
                     }
                 } else if case .view = viewMode {
                     Text("View mode")
@@ -92,6 +98,8 @@ struct MissionView: View {
             }
         }
     }
+    
+    // MARK: - CRUD
     
     private func insertPoint(after: MissionPoint? = nil) -> MissionPoint {
         let newPoint = MissionPoint(latitude, longitude, context: viewContext)
@@ -118,10 +126,18 @@ struct MissionView: View {
         return newPoint
     }
     
+    private func move(point: MissionPoint, to coordinate: CLLocationCoordinate2D) {
+        point.latitude = coordinate.latitude
+        point.longitude = coordinate.longitude
+        try? viewContext.save()
+    }
+    
     private func delete(point: MissionPoint) {
         mission.removeFromPoints(point)
         try? viewContext.save()
     }
+    
+    // MARK: - Controls Views
     
     struct InsertPointControls: View {
         @Binding var viewMode: ViewMode
@@ -160,7 +176,7 @@ struct MissionView: View {
                 }
                 HStack {
                     ControlButton(text: "Move", systemImage: "arrow.up.and.down.and.arrow.left.and.right") {
-                        // TODO
+                        viewMode = .movePoint(point)
                     }
                     Spacer()
                     ControlButton(text: "Delete", systemImage: "minus.circle") {

@@ -35,9 +35,10 @@ struct MissionMapView: UIViewRepresentable {
     
     func updateUIView(_ uiView: UIViewType, context: Context) {
         updateAnnotations(uiView)
+        updateOverlay(uiView)
     }
     
-    func updateAnnotations(_ mapView: MKMapView) {
+    private func updateAnnotations(_ mapView: MKMapView) {
         guard let annotations = mapView.annotations as? [MissionPoint],
               let points = mission.points?.array as? [MissionPoint] else {
                   return
@@ -55,6 +56,36 @@ struct MissionMapView: UIViewRepresentable {
             if !annotations.contains(point) {
                 mapView.addAnnotation(point)
             }
+        }
+    }
+    
+    private func updateOverlay(_ mapView: MKMapView) {
+        guard let overlay = mapView.overlays.first(where: { $0 is MKPolyline }) as? MKPolyline,
+              let points = mission.points else {
+                  return
+              }
+        
+        func rounded(_ coord: Double) -> Double{
+            return round(coord * 1_000_000) / 1_000_000.0
+        }
+        
+        func shouldUpdateOverlay() -> Bool {
+            if overlay.pointCount != points.count {
+                return true
+            }
+
+            let overlayCoords = (0...overlay.pointCount - 1).map { overlay.points()[$0].coordinate }
+            let pointCoords = points.compactMap { ($0 as? MissionPoint)?.coordinate }
+            let comparisons = zip(overlayCoords, pointCoords).map { (overlayCoord, pointCoord) in
+                rounded(overlayCoord.latitude) == rounded(pointCoord.latitude) &&
+                rounded(overlayCoord.longitude) == rounded(pointCoord.longitude)
+            }
+            return !comparisons.allSatisfy { $0 == true }
+        }
+
+        if shouldUpdateOverlay(), let newOverlay = mission.pathOverlay() {
+            mapView.removeOverlay(overlay)
+            mapView.addOverlay(newOverlay)
         }
     }
     
