@@ -20,17 +20,14 @@ struct MissionView: View {
     
     enum ViewMode {
         case view
-        case selectedPoint(MissionPoint)
-        case appendFirst
-        case appendBefore(MissionPoint)
-        case appendAfter(MissionPoint)
+        case insertFirst
+        case insertBefore(MissionPoint)
+        case insertAfter(MissionPoint)
         case movePoint(MissionPoint)
         
         func isEditing() -> Bool {
             switch self {
             case .view:
-                return false
-            case .selectedPoint:
                 return false
             default:
                 return true
@@ -41,54 +38,62 @@ struct MissionView: View {
     init(mission: Mission) {
         self.mission = mission
         let pointCount = mission.points?.count ?? 0
-        self.viewMode = pointCount > 0 ? .view : .appendFirst
-        print("view mode: \(self.viewMode)")
+        self.viewMode = pointCount > 0 ? .view : .insertFirst
     }
     
     var body: some View {
         ZStack {
-            MissionMapView(mission: mission, latitude: $latitude, longitude: $longitude)
-                .onPointSelectionChange { selectedPoint in
-                    if let selectedPoint = selectedPoint {
-                        viewMode = .selectedPoint(selectedPoint)
-                    } else {
-                        viewMode = .view
-                    }
-                }
+            MissionMapView(mission: mission, latitude: $latitude, longitude: $longitude, selectedPoint: $selectedPoint)
                 .edgesIgnoringSafeArea([.top, .trailing, .leading])
                 
             VStack {
+                #if DEBUG
                 Text("\(latitude), \(longitude)")
+                #endif
                 Spacer()
                 
-                if case .selectedPoint(let selectedPoint) = viewMode {
-                    SelectedPointControls(viewMode: $viewMode, point: selectedPoint, onDeletePoint: { delete(point: $0) })
-                } else if case .appendFirst = viewMode {
+                if let selectedPoint = selectedPoint {
+                    SelectedPointControls(
+                        point: selectedPoint,
+                        onInsertBefore: {
+                            self.selectedPoint = nil
+                            viewMode = .insertBefore($0)
+                        },
+                        onInsertAfter: {
+                            self.selectedPoint = nil
+                            viewMode = .insertAfter($0)
+                        },
+                        onMovePoint: {
+                            self.selectedPoint = nil
+                            viewMode = .movePoint($0)
+                        },
+                        onDeletePoint: { delete(point: $0) })
+                } else if case .insertFirst = viewMode {
                     InsertPointControls(viewMode: $viewMode, okText: "Set Starting Point", cancelText: "Cancel") {
                         let point = insertPoint()
-                        viewMode = .appendAfter(point)
+                        viewMode = .insertAfter(point)
                     }
-                } else if case .appendBefore(let point) = viewMode {
+                } else if case .insertBefore(let point) = viewMode {
                     InsertPointControls(viewMode: $viewMode, okText: "Add Point", cancelText: "Done") {
                         _ = insertPoint(before: point)
                         viewMode = .view
                     }
-                } else if case .appendAfter(let point) = viewMode {
+                } else if case .insertAfter(let point) = viewMode {
                     InsertPointControls(viewMode: $viewMode, okText: "Add Point", cancelText: "Done") {
                         let newPoint = insertPoint(after: point)
-                        if selectedPoint == point {
+                        if selectedPoint != nil {
                             viewMode = .view
                         } else {
-                            viewMode = .appendAfter(newPoint)
+                            viewMode = .insertAfter(newPoint)
                         }
                     }
                 } else if case .movePoint(let point) = viewMode {
                     InsertPointControls(viewMode: $viewMode, okText: "Save", cancelText: "Cancel") {
                         move(point: point, to: CLLocationCoordinate2D(latitude: latitude, longitude: longitude))
-                        viewMode = .selectedPoint(point)
+                        viewMode = .view
                     }
                 } else if case .view = viewMode {
-                    Text("View mode")
+                    
                 }
             }
             if viewMode.isEditing() {
@@ -105,7 +110,7 @@ struct MissionView: View {
         let newPoint = MissionPoint(latitude, longitude, context: viewContext)
         
         if let after = after, let pointIndex = mission.points?.index(of: after) {
-            mission.insertIntoPoints(newPoint, at: pointIndex)
+            mission.insertIntoPoints(newPoint, at: pointIndex + 1)
         } else {
             mission.addToPoints(newPoint)
         }
@@ -117,7 +122,7 @@ struct MissionView: View {
         let newPoint = MissionPoint(latitude, longitude, context: viewContext)
         
         if let pointIndex = mission.points?.index(of: before) {
-            mission.insertIntoPoints(newPoint, at: pointIndex + 1)
+            mission.insertIntoPoints(newPoint, at: pointIndex)
         } else {
             print("WARN - failed to insert new point before \(before)")
             mission.addToPoints(newPoint)
@@ -159,29 +164,30 @@ struct MissionView: View {
     }
     
     struct SelectedPointControls: View {
-        @Binding var viewMode: ViewMode
         var point: MissionPoint
+        let onInsertBefore: (MissionPoint) -> Void
+        let onInsertAfter: (MissionPoint) -> Void
+        let onMovePoint: (MissionPoint) -> Void
         let onDeletePoint: (MissionPoint) -> Void
 
         var body: some View {
             VStack {
                 HStack {
                     ControlButton(text: "Insert Before", systemImage: "arrow.uturn.backward.circle") {
-                        viewMode = .appendBefore(point)
+                        onInsertBefore(point)
                     }
                     Spacer()
                     ControlButton(text: "Insert After", systemImage: "arrow.uturn.right.circle") {
-                        viewMode = .appendAfter(point)
+                        onInsertAfter(point)
                     }
                 }
                 HStack {
                     ControlButton(text: "Move", systemImage: "arrow.up.and.down.and.arrow.left.and.right") {
-                        viewMode = .movePoint(point)
+                        onMovePoint(point)
                     }
                     Spacer()
                     ControlButton(text: "Delete", systemImage: "minus.circle") {
                         onDeletePoint(point)
-                        viewMode = .view
                     }
                     .foregroundColor(.red)
                 }

@@ -14,11 +14,13 @@ struct MissionMapView: UIViewRepresentable {
     @ObservedObject var mission: Mission
     @Binding var latitude: Double
     @Binding var longitude: Double
+    @Binding var selectedPoint: MissionPoint?
     
-    init(mission: Mission, latitude: Binding<Double>, longitude: Binding<Double>) {
+    init(mission: Mission, latitude: Binding<Double>, longitude: Binding<Double>, selectedPoint: Binding<MissionPoint?>) {
         self.mission = mission
         self._latitude = latitude
         self._longitude = longitude
+        self._selectedPoint = selectedPoint
     }
     
     func makeUIView(context: Context) -> some MKMapView {
@@ -27,16 +29,25 @@ struct MissionMapView: UIViewRepresentable {
         if let region = MissionMapView.pointsBoundingRegion(mission: mission) {
             mapView.region = region
         }
-        if let overlay = mission.pathOverlay() {
-            mapView.addOverlay(overlay)
-        }
+        mapView.register(MKMarkerAnnotationView.self, forAnnotationViewWithReuseIdentifier: String(describing: MissionPoint.self))
         return mapView
     }
     
     func updateUIView(_ uiView: UIViewType, context: Context) {
+        updateSelection(uiView)
         updateAnnotations(uiView)
         updateOverlay(uiView)
     }
+    
+    func updateSelection(_ mapView: MKMapView) {
+         if let selectedPoint = selectedPoint {
+             mapView.selectAnnotation(selectedPoint, animated: true)
+         } else {
+             mapView.selectedAnnotations.forEach {
+                 mapView.deselectAnnotation($0, animated: true)
+             }
+         }
+     }
     
     private func updateAnnotations(_ mapView: MKMapView) {
         guard let annotations = mapView.annotations as? [MissionPoint],
@@ -44,13 +55,19 @@ struct MissionMapView: UIViewRepresentable {
                   return
               }
         
+        if annotations.count != points.count {
+            mapView.removeAnnotations(annotations)
+            mapView.addAnnotations(points)
+            return
+        }
+        
         // Remove deleted annotations
         annotations.forEach { annotation in
             if !points.contains(annotation) {
                 mapView.removeAnnotation(annotation)
             }
         }
-        
+
         // Add new annotations
         points.forEach { point in
             if !annotations.contains(point) {
@@ -60,10 +77,15 @@ struct MissionMapView: UIViewRepresentable {
     }
     
     private func updateOverlay(_ mapView: MKMapView) {
-        guard let overlay = mapView.overlays.first(where: { $0 is MKPolyline }) as? MKPolyline,
-              let points = mission.points else {
-                  return
-              }
+        guard let overlay = mapView.overlays.first(where: { $0 is MKPolyline }) as? MKPolyline else {
+            if let newOverlay = mission.pathOverlay() {
+                mapView.addOverlay(newOverlay)
+            }
+            return
+        }
+        guard let points = mission.points else {
+            return
+        }
         
         func rounded(_ coord: Double) -> Double{
             return round(coord * 1_000_000) / 1_000_000.0
@@ -72,6 +94,9 @@ struct MissionMapView: UIViewRepresentable {
         func shouldUpdateOverlay() -> Bool {
             if overlay.pointCount != points.count {
                 return true
+            }
+            if overlay.pointCount == 0 && points.count == 0 {
+                return false
             }
 
             let overlayCoords = (0...overlay.pointCount - 1).map { overlay.points()[$0].coordinate }
@@ -123,15 +148,6 @@ struct MissionMapView: UIViewRepresentable {
         return MKCoordinateRegion(center: center, span: span)
     }
     
-    // MARK: - Modifiers
-    
-    fileprivate var onPointSelectionChangeCallback: ((MissionPoint?) -> Void)?
-    func onPointSelectionChange(_ callback: @escaping (MissionPoint?) -> Void) -> Self {
-        var view = self
-        view.onPointSelectionChangeCallback = callback
-        return view
-    }
-    
     // MARK: - Coordinator
     
     internal class Coordinator: NSObject, MKMapViewDelegate {
@@ -139,6 +155,19 @@ struct MissionMapView: UIViewRepresentable {
         
         init(_ parent: MissionMapView) {
             self.parent = parent
+        }
+        
+        func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+            if let point = annotation as? MissionPoint, let identifier = point.entity.name,
+               let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) as? MKMarkerAnnotationView
+            {
+                annotationView.isDraggable = true
+                if let pointPosition = point.mission?.points?.index(of: point) {
+                    annotationView.glyphText = String(pointPosition + 1)
+                }
+                return annotationView
+            }
+            return nil
         }
         
         func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
@@ -151,14 +180,15 @@ struct MissionMapView: UIViewRepresentable {
                 return
             }
             if let selectedPoint = selectedAnnotation as? MissionPoint {
-                self.parent.onPointSelectionChangeCallback?(selectedPoint)
+                parent.selectedPoint = selectedPoint
             } else {
                 print("Unknown selected annotation: \(selectedAnnotation)")
             }
         }
         
         func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
-            self.parent.onPointSelectionChangeCallback?(nil)
+            parent.selectedPoint = nil
+            
         }
         
         func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
