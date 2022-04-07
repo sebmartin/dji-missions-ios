@@ -83,7 +83,8 @@ struct MissionView: View {
                 } else if case .view = viewMode {
                     
                 }
-            }
+            }            
+            
             if viewMode.isEditing() {
                 Target(size: 40)
                     .foregroundColor(.red)
@@ -180,7 +181,7 @@ struct MissionView: View {
                             onDeletePoint(point)
                             selectedPoint = nil
                         }
-                        .foregroundColor(.red)
+                        .tint(.red)
                     }
                 }
             }
@@ -196,7 +197,7 @@ struct MissionView: View {
             Button(action: action) {
                 Label(text, systemImage: systemImage)
             }
-            .buttonStyle(.bordered)
+            .buttonStyle(.borderedProminent)
             .padding([.bottom], 30)
             .padding([.leading, .trailing], 10)
         }

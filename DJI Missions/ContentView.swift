@@ -11,7 +11,7 @@ import CoreData
 struct MainTabView: View {
     var body: some View {
         TabView {
-            Text("Drone")
+            DroneView()
                 .tabItem {
                     Image(systemName: "airplane.circle")
                     Text("Drone")
