@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9620E66327FFBDC900614015 /* MIssion+DJIWaypointMission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9620E66227FFBDC900614015 /* MIssion+DJIWaypointMission.swift */; };
 		964772B127FCDB4000428465 /* MissionOverlayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964772B027FCDB4000428465 /* MissionOverlayTests.swift */; };
 		964772B327FCDBA600428465 /* CoreDataFixtures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964772B227FCDBA600428465 /* CoreDataFixtures.swift */; };
 		965CF3EA27FB3106006E5F8B /* MissionPoint+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965CF3E927FB3106006E5F8B /* MissionPoint+Extensions.swift */; };
@@ -51,6 +52,7 @@
 /* Begin PBXFileReference section */
 		371B5F8CC60518B4B7553D96 /* Pods-DJI Missions.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DJI Missions.release.xcconfig"; path = "Target Support Files/Pods-DJI Missions/Pods-DJI Missions.release.xcconfig"; sourceTree = "<group>"; };
 		9620E66127FFA93100614015 /* DJI-Missions-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "DJI-Missions-Info.plist"; sourceTree = SOURCE_ROOT; };
+		9620E66227FFBDC900614015 /* MIssion+DJIWaypointMission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MIssion+DJIWaypointMission.swift"; sourceTree = "<group>"; };
 		964772B027FCDB4000428465 /* MissionOverlayTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionOverlayTests.swift; sourceTree = "<group>"; };
 		964772B227FCDBA600428465 /* CoreDataFixtures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataFixtures.swift; sourceTree = "<group>"; };
 		965CF3E927FB3106006E5F8B /* MissionPoint+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MissionPoint+Extensions.swift"; sourceTree = "<group>"; };
@@ -128,6 +130,7 @@
 				965CF3E927FB3106006E5F8B /* MissionPoint+Extensions.swift */,
 				965CF3F127FB81D4006E5F8B /* MissionPoint+MKAnnotation.swift */,
 				965CF3F327FB8CAF006E5F8B /* Mission+MKOverlay.swift */,
+				9620E66227FFBDC900614015 /* MIssion+DJIWaypointMission.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -405,6 +408,7 @@
 			files = (
 				968E840E27FD444700FA6256 /* DroneView.swift in Sources */,
 				96ADC6FF27F93DBB005EC8B7 /* DroneSDK.swift in Sources */,
+				9620E66327FFBDC900614015 /* MIssion+DJIWaypointMission.swift in Sources */,
 				965CF3F427FB8CAF006E5F8B /* Mission+MKOverlay.swift in Sources */,
 				9689EAA027FA8A8E0045A067 /* MissionsView.swift in Sources */,
 				965CF3F227FB81D4006E5F8B /* MissionPoint+MKAnnotation.swift in Sources */,

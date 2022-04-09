@@ -4,5 +4,7 @@
 <dict>
 	<key>DJISDKAppKey</key>
 	<string></string>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>Bluetooth is used to communicate with drone</string>
 </dict>
 </plist>
