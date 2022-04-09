@@ -251,21 +251,34 @@ class DJIDroneSDK: NSObject, DroneSDK {
             fatalError("TODO! operator not in 'ready to upload' state: \(missionOperator.currentState)")
         }
         
-        missionOperator.uploadMission { error in
-            if let error = error {
-                fatalError("TODO! error received during mission upload: \(error)")
-            }
+        missionOperator.addListener(toUploadEvent: self, with: DispatchQueue.main) { event in
             
-            guard case .readyToExecute = missionOperator.currentState else {
-                fatalError("TODO! operator not in 'ready to execute' state: \(missionOperator.currentState)")
-            }
-            
-//            // BE SURE ABOUT THIS!
-//            missionOperator.startMission { _ in
-//
-//            }
         }
         
+        func attemptUpload() {
+            DispatchQueue.main.async {
+                missionOperator.uploadMission { error in
+                    if let error = error {
+                        if (error as NSError).code == DJISDKError.timeout.rawValue {
+                            // timeout try again
+                            attemptUpload()
+                            return
+                        }
+                        fatalError("TODO! error received during mission upload: \(error)")
+                    }
+                    
+                    guard case .readyToExecute = missionOperator.currentState else {
+                        fatalError("TODO! operator not in 'ready to execute' state: \(missionOperator.currentState)")
+                    }
+                    
+        //            // BE SURE ABOUT THIS!
+        //            missionOperator.startMission { _ in
+        //
+        //            }
+                }
+            }
+        }
+        attemptUpload()
     }
 }
 
