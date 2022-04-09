@@ -21,13 +21,13 @@ extension EnvironmentValues {
 @main
 struct DJI_MissionsApp: App {
     let persistenceController = PersistenceController.shared
-    let droneDSK = DJIDroneSDK()
+    let droneSDK = DJIDroneSDK()
 
     var body: some Scene {
         WindowGroup() {
             MainTabView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
-                .environment(\.droneSDK, droneDSK)
+                .environment(\.droneSDK, droneSDK)
                 .edgesIgnoringSafeArea(.all)
         }
     }

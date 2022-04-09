@@ -7,10 +7,13 @@
 
 import SwiftUI
 import MapKit
+import Logging
 
+fileprivate let logger = Logger(suffix: "MissionView")
 
 struct MissionView: View {
     @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.droneSDK) private var droneSDK
 
     @ObservedObject var mission: Mission
     @State var viewMode: ViewMode
@@ -91,6 +94,13 @@ struct MissionView: View {
                     .allowsHitTesting(false)
             }
         }
+        .navigationBarItems(trailing: Button("Start Mission", action: startMission))
+    }
+    
+    // MARK: - Missions
+    
+    private func startMission() {
+        droneSDK.execute(mission: mission)
     }
     
     // MARK: - CRUD
@@ -113,7 +123,7 @@ struct MissionView: View {
         if let pointIndex = mission.points?.index(of: before) {
             mission.insertIntoPoints(newPoint, at: pointIndex)
         } else {
-            print("WARN - failed to insert new point before \(before)")
+            logger.warning("failed to insert new point before \(before)")
             mission.addToPoints(newPoint)
         }
         try? viewContext.save()

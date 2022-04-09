@@ -8,13 +8,15 @@
 import SwiftUI
 import DJISDK
 import CoreData
+import Logging
 
 struct DroneView: View {
     @Environment(\.droneSDK) var droneSDK
     @Environment(\.managedObjectContext) private var viewContext
+    let logger = Logger(suffix: "DroneView")
 
-    @State var bridgeAppIP: String = ""
-    @State var connectionType: ConnectionType = .bridge
+    @AppStorage("bridgeAppIP") var bridgeAppIP: String = ""
+    @AppStorage("connectionType") var connectionType: ConnectionType = .bridge
     @State var droneStatus: Drone.InitializationStatus = .disconnected
     @State var componentState: Drone.ComponentState = Drone.ComponentState()
     @State var registrationUnderway = false
@@ -42,12 +44,12 @@ struct DroneView: View {
                             .textInputAutocapitalization(.never)
                             .disableAutocorrection(true)
                             .disabled(!droneStatus.disconnected())
-                        if case .connectedToAircraft = droneStatus {
+                        if droneStatus.isReady() {
                             Button(action: cancelConnection) {
                                 Text("Disconnect")
                             }
                             .foregroundColor(.red)
-                        } else if !registrationUnderway {
+                        } else if droneStatus.disconnected() {
                             Button(action: connectToBridge) {
                                 Text("Connect")
                             }
@@ -58,7 +60,7 @@ struct DroneView: View {
                         }
                     }
                     
-                    if registrationUnderway {
+                    if droneStatus.registrationUnderway() {
                         Section(header: Text("Status")) {
                             HStack{
                                 ProgressView()
@@ -80,17 +82,13 @@ struct DroneView: View {
             .onReceive(droneSDK.initializationStatus) {
                 droneStatus = $0
                 registrationUnderway = $0.registrationUnderway()
-                print("Received initialization status: \($0), registration underway: \($0.registrationUnderway())")
+                logger.info("Received initialization status: \($0), registration underway: \($0.registrationUnderway())")
             }
             .onReceive(droneSDK.componentState) {
                 componentState = $0
-                print("Received component state")
+                logger.info("Received component state")
             }
             .navigationBarTitle("Drone Settings")
-            .navigationBarItems(
-                trailing:
-                    Text("HI")
-            )
         }.navigationViewStyle(StackNavigationViewStyle())
     }
     
@@ -99,9 +97,9 @@ struct DroneView: View {
             droneSDK.initSDK(bridgeAppIP: bridgeAppIP) { result in
                 switch result {
                 case .success(_):
-                    print("SDK registration completed")
+                    logger.info("SDK registration completed")
                 case .failure(let error):
-                    print("Failed to register with SDK: \(error)")
+                    logger.error("Failed to register with SDK: \(error)")
                 }
             }
         }
@@ -112,13 +110,7 @@ struct DroneView: View {
     }
     
     func connectToDrone() {
-        let request = NSFetchRequest<Mission>(entityName: "Mission")
-        request.fetchLimit = 1
-        request.sortDescriptors = [
-            NSSortDescriptor(key: "timestamp", ascending: false)
-        ]
-        let result = try? viewContext.fetch(request)
-        print(result ?? "No results to print")
+        // TODO
     }
 }
 

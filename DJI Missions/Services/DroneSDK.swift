@@ -8,8 +8,11 @@
 import UIKit
 import DJISDK
 import Combine
+import Logging
 
-protocol DroneSDK {
+fileprivate let logger = Logger(suffix: "DroneSDK")
+
+protocol DroneSDK: AnyObject {
     typealias CompletionHandler = (Result<Void, Drone.Error>) -> Void
     
     var initializationStatus: AnyPublisher<Drone.InitializationStatus, Never> { get }
@@ -17,6 +20,8 @@ protocol DroneSDK {
 
     func initSDK(bridgeAppIP: String?, completionHandler handler: @escaping CompletionHandler) -> Void
     func disconnect()
+    
+    func execute(mission: Mission)
 }
 
 struct Drone {
@@ -138,7 +143,7 @@ struct Drone {
                     case "radar": self.radar = newValue
                     case "remoteController": self.remoteController = newValue
                     default:
-                        print("Invalid drone component key: \(newValue)")
+                        logger.error("Invalid drone component key: \(newValue)")
                     }
                 }
             }
@@ -161,10 +166,12 @@ struct Drone {
 }
 
 class DJIDroneSDK: NSObject, DroneSDK {
+    let logger = Logger(suffix: "DJIDroneSDK")
+    
     var initializationStatus_ = CurrentValueSubject<Drone.InitializationStatus, Never>(.disconnected)
     var initializationStatus: AnyPublisher<Drone.InitializationStatus, Never> { self.initializationStatus_.eraseToAnyPublisher() }
     
-    var componentState_ = PassthroughSubject<Drone.ComponentState, Never>()
+    var componentState_ = CurrentValueSubject<Drone.ComponentState, Never>(Drone.ComponentState())
     var componentState: AnyPublisher<Drone.ComponentState, Never> { self.componentState_.eraseToAnyPublisher() }
     
     var enableBridgeMode = true
@@ -181,7 +188,7 @@ class DJIDroneSDK: NSObject, DroneSDK {
         
         let appKey = Bundle.main.object(forInfoDictionaryKey: SDK_APP_KEY_INFO_PLIST_KEY) as? String
         guard appKey != nil && appKey!.isEmpty == false else {
-            NSLog("Please enter your app key in the info.plist")
+            logger.error("Please enter your app key in the info.plist")
             return
         }
                 
@@ -214,11 +221,17 @@ class DJIDroneSDK: NSObject, DroneSDK {
         DJISDKManager.startListeningOnComponentConnectionUpdates(withListener: self) { componentKey, index, isConnected in
             self.currentComponentState[componentKey]?.states[index] = Drone.ComponentState.State(isConnected)
             self.componentState_.send(self.currentComponentState)
-            print((componentKey, index, isConnected))
+            self.logger.info("\((componentKey, index, isConnected))")
+            
         }
     }
     
     func execute(mission: Mission) {
+        guard self.initializationStatus_.value.isReady() else  {
+            logger.error("Cannot execute mission; aircraft is not ready: \(self.initializationStatus_.value)")
+            return
+        }
+        
         guard let djiMission = mission.asDJIWaypointMission() else {
             fatalError("TODO! handle failed mission conversion")
         }
@@ -227,7 +240,8 @@ class DJIDroneSDK: NSObject, DroneSDK {
         }
         
         guard let missionOperator = DJISDKManager.missionControl()?.waypointMissionOperator() else {
-            fatalError("TODO! handle failed mission operator error")
+            logger.error("Could not obtain mission operator. Is the aircraft connected?")
+            return
         }
         if let loadError = missionOperator.load(djiMission) {
             fatalError("TODO! handle load error: \(loadError)")

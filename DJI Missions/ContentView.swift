@@ -9,8 +9,10 @@ import SwiftUI
 import CoreData
 
 struct MainTabView: View {
+    @AppStorage("selectedTab") var selectedTab = 0
+    
     var body: some View {
-        TabView {
+        TabView(selection: $selectedTab) {
             DroneView()
                 .tabItem {
                     Image(systemName: "airplane.circle")

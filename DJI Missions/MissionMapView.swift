@@ -7,8 +7,11 @@
 
 import SwiftUI
 import MapKit
+import Logging
 
 let SPAN_PADDING_FACTOR = 1.5
+
+fileprivate let logger = Logger(suffix: "MissionMapView")
 
 struct MissionMapView: UIViewRepresentable {
     @ObservedObject var mission: Mission
@@ -182,7 +185,7 @@ struct MissionMapView: UIViewRepresentable {
             if let selectedPoint = selectedAnnotation as? MissionPoint {
                 parent.selectedPoint = selectedPoint
             } else {
-                print("Unknown selected annotation: \(selectedAnnotation)")
+                logger.error("Unknown selected annotation: \(selectedAnnotation)")
             }
         }
         

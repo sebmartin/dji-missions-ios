@@ -15,6 +15,8 @@
 		965CF3F027FB7953006E5F8B /* TargetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965CF3EF27FB7953006E5F8B /* TargetView.swift */; };
 		965CF3F227FB81D4006E5F8B /* MissionPoint+MKAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965CF3F127FB81D4006E5F8B /* MissionPoint+MKAnnotation.swift */; };
 		965CF3F427FB8CAF006E5F8B /* Mission+MKOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965CF3F327FB8CAF006E5F8B /* Mission+MKOverlay.swift */; };
+		9685AC6928013AE10067D8A8 /* Logging in Frameworks */ = {isa = PBXBuildFile; productRef = 9685AC6828013AE10067D8A8 /* Logging */; };
+		9685AC6B28013EE40067D8A8 /* Logging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9685AC6A28013EE40067D8A8 /* Logging.swift */; };
 		9689EAA027FA8A8E0045A067 /* MissionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9689EA9F27FA8A8E0045A067 /* MissionsView.swift */; };
 		9689EAA227FA8D010045A067 /* MissionMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9689EAA127FA8D010045A067 /* MissionMapView.swift */; };
 		968E840E27FD444700FA6256 /* DroneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968E840D27FD444700FA6256 /* DroneView.swift */; };
@@ -60,6 +62,7 @@
 		965CF3EF27FB7953006E5F8B /* TargetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetView.swift; sourceTree = "<group>"; };
 		965CF3F127FB81D4006E5F8B /* MissionPoint+MKAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MissionPoint+MKAnnotation.swift"; sourceTree = "<group>"; };
 		965CF3F327FB8CAF006E5F8B /* Mission+MKOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Mission+MKOverlay.swift"; sourceTree = "<group>"; };
+		9685AC6A28013EE40067D8A8 /* Logging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logging.swift; sourceTree = "<group>"; };
 		9689EA9F27FA8A8E0045A067 /* MissionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionsView.swift; sourceTree = "<group>"; };
 		9689EAA127FA8D010045A067 /* MissionMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionMapView.swift; sourceTree = "<group>"; };
 		968E840D27FD444700FA6256 /* DroneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DroneView.swift; sourceTree = "<group>"; };
@@ -86,6 +89,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9685AC6928013AE10067D8A8 /* Logging in Frameworks */,
 				F928A2DC0F76053A4C6F44DD /* libPods-DJI Missions.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -164,6 +168,7 @@
 				965CF3E827FB30E6006E5F8B /* Models */,
 				96ADC6FD27F93DA3005EC8B7 /* Services */,
 				96ADC6CE27F93BBA005EC8B7 /* DJI_MissionsApp.swift */,
+				9685AC6A28013EE40067D8A8 /* Logging.swift */,
 				96ADC6D027F93BBA005EC8B7 /* ContentView.swift */,
 				968E840D27FD444700FA6256 /* DroneView.swift */,
 				9689EA9F27FA8A8E0045A067 /* MissionsView.swift */,
@@ -233,6 +238,9 @@
 			dependencies = (
 			);
 			name = "DJI Missions";
+			packageProductDependencies = (
+				9685AC6828013AE10067D8A8 /* Logging */,
+			);
 			productName = "DJI Missions";
 			productReference = 96ADC6CB27F93BBA005EC8B7 /* DJI Missions.app */;
 			productType = "com.apple.product-type.application";
@@ -305,6 +313,9 @@
 				Base,
 			);
 			mainGroup = 96ADC6C227F93BBA005EC8B7;
+			packageReferences = (
+				9685AC6728013AE10067D8A8 /* XCRemoteSwiftPackageReference "swift-log" */,
+			);
 			productRefGroup = 96ADC6CC27F93BBA005EC8B7 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -407,6 +418,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				968E840E27FD444700FA6256 /* DroneView.swift in Sources */,
+				9685AC6B28013EE40067D8A8 /* Logging.swift in Sources */,
 				96ADC6FF27F93DBB005EC8B7 /* DroneSDK.swift in Sources */,
 				9620E66327FFBDC900614015 /* MIssion+DJIWaypointMission.swift in Sources */,
 				965CF3F427FB8CAF006E5F8B /* Mission+MKOverlay.swift in Sources */,
@@ -753,6 +765,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		9685AC6728013AE10067D8A8 /* XCRemoteSwiftPackageReference "swift-log" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-log.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		9685AC6828013AE10067D8A8 /* Logging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9685AC6728013AE10067D8A8 /* XCRemoteSwiftPackageReference "swift-log" */;
+			productName = Logging;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		96F10B1627F947BE00D26D60 /* DJI_Missions.xcdatamodeld */ = {
